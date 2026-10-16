@@ -1,0 +1,59 @@
+name: Windows build
+
+# Builds FinPilot.exe and the installer on a real Windows runner using build\build_windows.ps1
+# (tests, PyInstaller, packaged self-test, Inno Setup). Download the results from the run's
+# "Artifacts" section.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          architecture: x64
+
+      - name: Install Inno Setup 6
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) {
+            choco install innosetup -y --no-progress
+          }
+
+      - name: Build, test and self-test
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File build\build_windows.ps1 -Python python
+
+      - name: Upload portable app
+        uses: actions/upload-artifact@v4
+        with:
+          name: FinPilot-portable-win64
+          path: |
+            dist/FinPilot/
+          if-no-files-found: error
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: FinPilot-Setup-win64
+          path: dist/installer/*.exe
+          if-no-files-found: warn
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: |
+            dist/test-results.xml
+            dist/selftest/
+            dist/SHA256SUMS.txt
+          if-no-files-found: ignore

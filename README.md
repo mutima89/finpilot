@@ -84,6 +84,10 @@ builds `dist\FinPilot\FinPilot.exe` with PyInstaller, runs the packaged app's he
 builds `dist\installer\FinPilot-Setup-1.0.0.exe` (per-user install, no admin rights). It finishes by writing
 SHA-256 checksums. Details and troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
+On GitHub, the **Windows build** workflow (`.github/workflows/windows-build.yml`) runs the same script on a
+Windows runner for every push to `main` and uploads the portable app, the installer and the test/self-test
+reports as downloadable artifacts of the run (Actions tab → latest run → Artifacts).
+
 ## Project layout
 
 ```
