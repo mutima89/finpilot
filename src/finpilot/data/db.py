@@ -120,14 +120,18 @@ class Database:
 
     @staticmethod
     def _healthy(path: Path) -> bool:
+        # Always close the connection: on Windows an open handle stops the damaged file being moved aside.
+        c = None
         try:
             c = sqlite3.connect(path)
             ok = c.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
             c.execute("SELECT count(*) FROM sqlite_master").fetchone()
-            c.close()
             return ok
         except sqlite3.DatabaseError:
             return False
+        finally:
+            if c is not None:
+                c.close()
 
     def integrity_ok(self) -> bool:
         try:

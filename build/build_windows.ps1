@@ -50,9 +50,9 @@ Run $venvPy @("-m", "pip", "install", "-r", "requirements-dev.txt")
 
 if (-not $SkipTests) {
     Step "3/7 Running the automated test suite"
-    $env:QT_QPA_PLATFORM = "offscreen"
+    # The UI tests use the real Windows platform (windows flash briefly): Qt's "offscreen" platform has no
+    # Windows fonts, so its text measurements do not match what users see.
     Run $venvPy @("-m", "pytest", "tests", "-q", "-p", "no:cacheprovider", "--junitxml", "dist\test-results.xml")
-    Remove-Item Env:\QT_QPA_PLATFORM
 } else {
     Write-Host "Tests skipped (-SkipTests)." -ForegroundColor Yellow
 }

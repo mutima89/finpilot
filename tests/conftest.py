@@ -5,7 +5,9 @@ import os
 import sys
 from pathlib import Path
 
-os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+if sys.platform != "win32":
+    # Headless elsewhere; on Windows the native platform is used so fonts and metrics match real use.
+    os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 SRC = Path(__file__).resolve().parents[1] / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))

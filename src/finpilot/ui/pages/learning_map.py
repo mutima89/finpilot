@@ -47,7 +47,8 @@ class LearningMapPage(Page):
             if lv.lessons:
                 g = QGridLayout()
                 g.setSpacing(8)
-                for i, l in enumerate(lv.lessons):
+                buttons = []
+                for l in lv.lessons:
                     st = prog.lesson_status(cur, db, l, progress)
                     pr = progress.get(l.id, {})
                     score = f" · best {pr['best_score']:.0%}" if pr.get("best_score") is not None else ""
@@ -66,7 +67,9 @@ class LearningMapPage(Page):
                         b.setToolTip(l.summary)
                     b.clicked.connect(lambda _=False, lid=l.id, k=l.kind: self.ctx.navigate(
                         "project" if k != "lesson" else "lesson", lid))
-                    cols = 3 if self.width() >= 1150 else 2
+                    buttons.append(b)
+                cols = self._columns(max(b.minimumSizeHint().width() for b in buttons))
+                for i, b in enumerate(buttons):
                     g.addWidget(b, i // cols, i % cols)
                 card.add(g)
                 if lv.number == 3:
@@ -86,9 +89,16 @@ class LearningMapPage(Page):
                                "Muted"))
             self.content.addWidget(card)
 
+    def _columns(self, button_width: int) -> int:
+        """As many lesson columns (1-3) as fit the page; font metrics differ between systems."""
+        room = self.width() - 140  # page and card margins
+        for cols in (3, 2):
+            if cols * button_width + (cols - 1) * 8 <= room and (cols < 3 or self.width() >= 1150):
+                return cols
+        return 1
+
     def resizeEvent(self, e):
         super().resizeEvent(e)
-        cols = 3 if self.width() >= 1150 else 2
-        if getattr(self, "_cols", None) != cols:
-            self._cols = cols
+        if getattr(self, "_last_width", None) is None or abs(self.width() - self._last_width) >= 40:
+            self._last_width = self.width()
             self.refresh()

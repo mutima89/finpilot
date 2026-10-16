@@ -42,7 +42,25 @@ def test_every_screen_renders_without_horizontal_overflow(app_window, qtbot, siz
         assert win.stack.currentWidget() is page
         sa = page.findChild(QScrollArea, "PageScroll")
         inner = sa.widget() if sa else page
-        assert inner.minimumSizeHint().width() <= win.stack.width(), f"{key} overflows at {size}"
+        assert inner.minimumSizeHint().width() <= win.stack.width(), \
+            f"{key} overflows at {size}; widest parts: {_widest(inner)}"
+
+
+def _widest(root, n=6):
+    """Name the widgets with the largest minimum widths, to make an overflow failure actionable."""
+    from PySide6.QtGui import QFontInfo
+    from PySide6.QtWidgets import QAbstractButton, QLabel, QWidget
+    rows = []
+    for w in root.findChildren(QWidget):
+        if not w.isVisibleTo(root):
+            continue
+        mw = max(w.minimumSizeHint().width(), w.minimumWidth())
+        text = w.text().replace("\n", " | ")[:60] if isinstance(w, (QLabel, QAbstractButton)) else ""
+        rows.append((mw, type(w).__name__, w.objectName(), text))
+    rows.sort(key=lambda r: -r[0])
+    fi = QFontInfo(root.font())
+    return f"font={fi.family()} {fi.pointSizeF()}pt/{fi.pixelSize()}px " + "; ".join(
+        f"{mw}px {cls}#{name} '{text}'" for mw, cls, name, text in rows[:n])
 
 
 def test_theme_switch(app_window):
