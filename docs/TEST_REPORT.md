@@ -55,9 +55,24 @@ Drives the real widgets, not the functions behind them:
 - Windows 64-bit wheels for every pinned runtime dependency and PyInstaller were downloaded successfully for
   Python 3.12 (`win_amd64`), confirming the pins are installable on Windows.
 
+## Windows build (GitHub Actions, windows-latest, Python 3.12.10 x64)
+
+Run 38960959983 of `.github/workflows/windows-build.yml` executed `build\build_windows.ps1` end to end:
+
+- Test suite with the native Windows Qt platform: 157 passed, 1 skipped (the LibreOffice recalculation test;
+  LibreOffice is not installed on the runner), 0 failed.
+- PyInstaller built `dist\FinPilot\FinPilot.exe`; its `--self-test` passed all five checks (12 screens,
+  20 lessons with 0 content problems, reference model 17,484,066, Excel re-read 17,484,066, PDF written).
+- Inno Setup built `dist\installer\FinPilot-Setup-1.0.0.exe`; checksums written to `SHA256SUMS.txt`.
+
+The first Windows run found three Windows-only problems, now fixed: the database health check kept a file
+handle open (a damaged database could not be moved aside), the learning map used a fixed column breakpoint
+that did not fit Windows text widths, and the UI tests used Qt's `offscreen` platform, whose font metrics on
+Windows do not match real use.
+
 ## Not tested
 
-- Building or running `FinPilot.exe` on Windows 10/11, the Inno Setup installer, SmartScreen behaviour.
+- Launching `FinPilot.exe` or running the installer interactively on a physical Windows 10/11 PC; SmartScreen behaviour.
 - Opening exported workbooks in Microsoft Excel.
 - Physical displays, Windows display scaling above 100%, keyboard-only use and screen readers.
 - Long-term use (months of spaced-repetition data) beyond the date-shifting in the tests.

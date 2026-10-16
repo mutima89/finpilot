@@ -4,9 +4,9 @@ Status key: **Done** (implemented and covered by tests or visual review), **Part
 
 | Requirement | Status | Where / notes |
 |---|---|---|
-| Windows 10/11 64-bit desktop app, Python + PySide6 | Done (source) | `src/finpilot`; runs from source; packaging verified on Linux only |
-| Standalone .exe | **Not built** | `build/build_windows.ps1` + `build/finpilot.spec` produce and self-test it on Windows |
-| Installer | **Not built** | `build/installer.iss` (Inno Setup 6), run by the build script |
+| Windows 10/11 64-bit desktop app, Python + PySide6 | Done | `src/finpilot`; built and self-tested on a GitHub Actions Windows runner |
+| Standalone .exe | Built (CI) | `.github/workflows/windows-build.yml` runs `build/build_windows.ps1` on `windows-latest`; packaged self-test passes. Not yet launched interactively by a person |
+| Installer | Built (CI) | `build/installer.iss` (Inno Setup 6); `FinPilot-Setup-1.0.0.exe` is a CI artifact. Not yet installed and tested by a person |
 | Fully offline, no telemetry, no account | Done | No network code; data in `%APPDATA%\FinPilot` |
 | Brand: name, tagline, palette, compass logo, light/dark | Done | `ui/theme.py`, `ui/logo.py`, `assets/` |
 | Modular architecture | Done | `docs/ARCHITECTURE.md` |
