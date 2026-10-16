@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finpilot"
+version = "1.0.0"
+description = "FinPilot: Interactive Financial Modeling Academy. Learn the numbers. Master the model."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+dependencies = [
+    "PySide6-Essentials==6.8.1",
+    "matplotlib==3.11.2",
+    "numpy==2.5.3",
+    "openpyxl==3.1.5",
+    "reportlab==5.0.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "pytest-qt==4.5.0", "pyinstaller==6.22.3", "pillow==12.3.0"]
+
+[project.gui-scripts]
+finpilot = "finpilot.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+finpilot = ["curriculum/content/*.json", "assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+qt_api = "pyside6"

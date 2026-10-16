@@ -1,0 +1,24 @@
+{
+  "skills": [
+    {"id": "model_purpose", "name": "Model structure & purpose", "level": 1, "area": "Conceptual understanding"},
+    {"id": "statements", "name": "Financial statement relationships", "level": 1, "area": "Conceptual understanding"},
+    {"id": "profit_vs_cash", "name": "Profit versus cash flow", "level": 1, "area": "Financial reasoning"},
+    {"id": "cost_behaviour", "name": "Cost behaviour & break-even", "level": 1, "area": "Calculation accuracy"},
+    {"id": "profit_measures", "name": "Margins, EBITDA, EBIT, net income", "level": 1, "area": "Calculation accuracy"},
+    {"id": "growth_ratios", "name": "Growth rates & ratios", "level": 1, "area": "Calculation accuracy"},
+    {"id": "workbook_design", "name": "Workbook design & formatting", "level": 2, "area": "Model structure"},
+    {"id": "references", "name": "Relative & absolute references", "level": 2, "area": "Formula construction"},
+    {"id": "logic_functions", "name": "SUM, IF and error handling", "level": 2, "area": "Formula construction"},
+    {"id": "lookups", "name": "Lookups & conditional sums", "level": 2, "area": "Formula construction"},
+    {"id": "dates", "name": "Dates & monthly time series", "level": 2, "area": "Formula construction"},
+    {"id": "auditing", "name": "Formula auditing & error detection", "level": 2, "area": "Error detection"},
+    {"id": "hotel_kpis", "name": "Hotel KPIs (occupancy, ADR, RevPAR)", "level": 3, "area": "Calculation accuracy"},
+    {"id": "revenue_drivers", "name": "Revenue drivers", "level": 3, "area": "Model structure"},
+    {"id": "seasonality", "name": "Seasonality & forecasting", "level": 3, "area": "Financial reasoning"},
+    {"id": "variance", "name": "Budget vs actual variance", "level": 3, "area": "Scenario interpretation"},
+    {"id": "revenue_bridge", "name": "Revenue bridges (rate vs volume)", "level": 3, "area": "Reconciliation"},
+    {"id": "sensitivity", "name": "Sensitivity & scenario analysis", "level": 3, "area": "Scenario interpretation"},
+    {"id": "hotel_model", "name": "Building a 12-month hotel model", "level": 3, "area": "Model structure"},
+    {"id": "recommendation", "name": "Written recommendations", "level": 3, "area": "Communication of findings"}
+  ]
+}

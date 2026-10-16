@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv*/
+build/_work/
+dist/
+*.finpilot.bak
