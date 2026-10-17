@@ -1,51 +1,100 @@
+<div align="center">
+
+<img src="src/finpilot/assets/finpilot.png" alt="FinPilot logo" width="96">
+
 # FinPilot
 
 **Learn the numbers. Master the model.**
-Interactive Financial Modeling Academy: a Windows desktop app (Python + PySide6) that teaches financial
-modeling by having you build real models, step by step, with immediate feedback. Fully offline.
 
-All companies, hotels and figures in FinPilot are **fictional** and for training only.
+An interactive financial modeling academy for Windows. You build real models step by step and get
+immediate, specific feedback. It works fully offline.
 
-## What is in Version 1
+[![Windows build](https://github.com/mutima89/finpilot/actions/workflows/windows-build.yml/badge.svg)](https://github.com/mutima89/finpilot/actions/workflows/windows-build.yml)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011%20(64--bit)-0B1F33)
+![Python](https://img.shields.io/badge/python-3.12-1F8A7A)
+![Qt](https://img.shields.io/badge/UI-PySide6%20(Qt%206)-1F8A7A)
+![Tests](https://img.shields.io/badge/tests-158%20passing-2E9E6B)
+![Offline](https://img.shields.io/badge/telemetry-none-E0A526)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-- **Branded onboarding** (name, guidance mode, light/dark theme, XP on/off) and a home dashboard.
-- **10-level learning map.** Levels 1-3 are complete courses (18 lessons + 2 projects); Level 4 has a
-  working preview (group-vs-transient displacement simulator); Levels 5-10 are shown as planned.
-- **Lesson engine** with 10 steps per lesson: Understand, See, Build, Predict, Test, Explain, Apply,
-  Recall, Review, Progress. Three modes (Guided, Practice, Challenge). Hints and worked solutions unlock only
-  after an attempt, in every mode (hints/solution after 1/1 tries in Guided, 1/2 in Practice, 2/3 in Challenge). Bookmarks, restart, resume where you left off.
-- **Formula engine** (no `eval`): a safe parser and evaluator for 56 Excel functions, with Excel-style
-  precedence, relative/absolute references, named ranges, and explicit error values
-  (`#DIV/0!`, `#VALUE!`, `#REF!`, `#NAME?`, `#N/A`, `#NUM!`, `#CIRC!`, `#UNSUPPORTED!`). Unsupported Excel
-  functions are reported as `#UNSUPPORTED!` with an explanation, never silently mis-evaluated.
-- **Behavioural grading**: formula answers are re-evaluated with changed inputs, so typed numbers,
-  hard-coded constants and missing `$` anchors are caught even when today's value looks right.
-  Number answers diagnose percent-scale, sign, rounding, inverted ratios and known mistakes.
-- **Modeling Lab**: a spreadsheet workspace where you build the 12-month Harbour Crest Hotel model in
-  10 guided tasks (available room nights, rooms sold, room revenue, RevPAR, F&B, other revenue, total,
-  full-year totals, weighted annual KPIs, budget variance). Each task is checked on changed inputs; the
-  finished model is validated against an independent Python calculation. Undo/redo, fill right, copy/paste,
-  explain cell, trace precedents, named ranges, roles/formats, autosave and recovery.
-- **Hotel Simulation Center**: editable budget and forecast, what-if sliders and presets, KPI tiles,
-  charts, validation checks, monthly volume/rate revenue bridge (reconciles exactly), sensitivity grid,
-  actual vs budget vs forecast, and the group displacement analysis with break-even group rate.
-- **Practice** (13 randomised formula drills), **final practical assessment** (18 items in 6 sections,
-  70% overall and 50% per section to pass), **mistakes notebook** with spaced review (1, 3, 7, 14, 30 days;
-  three correct reviews in a row resolve an item), **progress and competency dashboard** (20 skills, rated
-  from evidence; the hotel-model skill requires a validated model), **portfolio**, **settings**
-  (backup/restore, integrity check, reset).
-- **Exports**: Excel workbook with live formulas (Model, Scenario inputs, Scenarios with charts, Bridge,
-  Checks & notes, Recommendation), the Lab sheet alone, a project report PDF, a competency report PDF, and
-  progress CSV/JSON.
-- **Gamification** that rewards correct reasoning and validated models only; it can be switched off.
-  No streaks, no timers, no penalties.
-- **Privacy**: no account, no internet, no telemetry. Data stays in `%APPDATA%\FinPilot`.
+[Download](#download) · [Features](#features) · [Screenshots](#screenshots) · [Build from source](#build-from-source) ·
+[Architecture](#architecture) · [Roadmap](#roadmap)
 
-## Run from source
+<img src="docs/screenshots/05-lab-validated.png" alt="The Modeling Lab with a validated 12-month hotel revenue model" width="900">
 
-Requires Python 3.11+ (3.12 64-bit recommended on Windows).
+</div>
+
+---
+
+## Why FinPilot
+
+Most people learn financial modeling by copying someone else's spreadsheet. FinPilot makes you **build** the
+model yourself, and checks the result the way a reviewer would.
+
+- **Behavioural grading.** Your formulas are re-run with changed inputs, so typed numbers, hard-coded
+  constants and missing `$` anchors are caught even when today's value looks right.
+- **Feedback that teaches.** Wrong answers are diagnosed (percent scale, sign, rounding, inverted ratios,
+  known mistakes). Hints and worked solutions unlock only after you've made an attempt.
+- **Real deliverables.** It exports Excel workbooks with live formulas (not pasted values) and PDF reports.
+- **Private by design.** There's no account, no internet connection and no telemetry. Your data stays in
+  `%APPDATA%\FinPilot`.
+
+> All companies, hotels and figures in FinPilot are **fictional** and for training only.
+
+## Download
+
+Every push to `main` builds and self-tests the Windows app on GitHub Actions.
+
+1. Open the latest successful [**Windows build** run](https://github.com/mutima89/finpilot/actions/workflows/windows-build.yml).
+2. Under **Artifacts**, download one of these:
+   - **FinPilot-Setup-win64**: the installer `FinPilot-Setup-1.0.0.exe`. It installs per user and needs no
+     admin rights.
+   - **FinPilot-portable-win64**: a folder you can run without installing (`FinPilot.exe`).
+3. The app isn't code-signed yet. If Windows shows *"Windows protected your PC"*, click **More info**, then
+   **Run anyway**.
+
+## Features
+
+| Area | What you get |
+|---|---|
+| **Learning path** | A 10-level map. Levels 1-3 are complete courses (18 lessons + 2 projects): financial foundations, spreadsheet fundamentals and hotel revenue. Level 4 has a working preview. |
+| **Lesson engine** | 10 steps per lesson: Understand, See, Build, Predict, Test, Explain, Apply, Recall, Review, Progress. Three modes (Guided, Practice, Challenge), bookmarks and resume. |
+| **Modeling Lab** | A spreadsheet workspace where you build the 12-month *Harbour Crest Hotel* model in 10 guided tasks. It includes undo/redo, fill right, explain cell, trace precedents and named ranges, plus autosave and recovery. |
+| **Formula engine** | A safe parser and evaluator for 56 Excel functions (no `eval`). It follows Excel precedence, handles relative and absolute references, and returns explicit errors (`#DIV/0!`, `#REF!`, `#CIRC!`, `#UNSUPPORTED!`...). |
+| **Simulation Center** | Budget vs forecast, what-if sliders and presets, KPI tiles and charts. Also a revenue bridge that reconciles exactly, a sensitivity grid, and group vs transient displacement with a break-even rate. |
+| **Practice & assessment** | 13 randomised formula drills and an 18-item final practical assessment in 6 sections, with a per-section report. |
+| **Retention** | A mistakes notebook with spaced review (1, 3, 7, 14 and 30 days). Three correct reviews in a row resolve an item. |
+| **Progress** | A competency dashboard with 20 skills rated from evidence, plus a portfolio. Badges reward validated work only, can be switched off, and come with no streaks or timers. |
+| **Exports** | An Excel workbook with live formulas (Model, Scenarios with charts, Bridge, Checks, Recommendation), a project PDF, a competency PDF and progress CSV/JSON. |
+| **Comfort** | Light and dark themes, branded onboarding, backup/restore and a database integrity check. |
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/02-home.png" alt="Home dashboard"><br><sub><b>Home.</b> Continue where you left off, plus skills, reviews and projects.</sub></td>
+    <td width="50%"><img src="docs/screenshots/03-learning-map.png" alt="Learning map"><br><sub><b>Learning map.</b> Ten levels, with prerequisites and progress.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/04-lesson-feedback.png" alt="Lesson with feedback"><br><sub><b>Lessons.</b> Specific feedback on what went wrong and why.</sub></td>
+    <td><img src="docs/screenshots/06-simulation.png" alt="Hotel Simulation Center"><br><sub><b>Simulation Center.</b> Scenarios, KPIs, bridge and sensitivity.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/07-progress.png" alt="Progress and competency dashboard"><br><sub><b>Progress.</b> Competencies rated from evidence, not screens visited.</sub></td>
+    <td><img src="docs/screenshots/08-lab-dark.png" alt="Modeling Lab in dark theme"><br><sub><b>Dark theme.</b> The Modeling Lab after dark.</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/screenshots/01-onboarding.png" alt="Onboarding" width="60%"><br><sub><b>Onboarding.</b> Your name, guidance mode, theme and XP preference.</sub></td>
+  </tr>
+</table>
+
+## Build from source
+
+**Requirements:** Python 3.12 (64-bit) on Windows 10/11. Python 3.11+ also works for running from source on
+macOS/Linux.
 
 ```powershell
+# Run the app
 py -3.12 -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
@@ -53,56 +102,75 @@ set PYTHONPATH=src
 python -m finpilot
 ```
 
-On macOS/Linux use `export PYTHONPATH=src` and `python3 -m finpilot`.
-
-## Run the tests
-
 ```powershell
+# Run the tests
 pip install -r requirements-dev.txt
-set QT_QPA_PLATFORM=offscreen
 python -m pytest tests
 ```
 
-The suite (158 tests) covers the formula engine, sheet model, finance and hotel calculations against
-independent hand calculations, grading, curriculum integrity, the hotel project checker, progression,
-the database (including corruption and backup/restore), project files (including corrupted files), Excel
-export round-trips (and a LibreOffice recalculation when LibreOffice is installed), PDFs, and UI tests that
-render every screen at four window sizes and drive a complete learner journey through the real widgets.
-See [docs/TEST_REPORT.md](docs/TEST_REPORT.md).
-
-## Build the Windows app (.exe and installer)
-
-On a Windows 10/11 64-bit PC with Python 3.12 (64-bit) installed:
-
 ```powershell
+# Build FinPilot.exe and the installer (Inno Setup 6 optional)
 powershell -ExecutionPolicy Bypass -File build\build_windows.ps1
 ```
 
-The script creates a clean virtual environment, installs pinned dependencies, runs the full test suite,
-builds `dist\FinPilot\FinPilot.exe` with PyInstaller, runs the packaged app's headless self-test
-(`FinPilot.exe --self-test <folder>`), and, if [Inno Setup 6](https://jrsoftware.org/isdl.php) is installed,
-builds `dist\installer\FinPilot-Setup-1.0.0.exe` (per-user install, no admin rights). It finishes by writing
-SHA-256 checksums. Details and troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+The build script does seven things:
+1. Creates a clean virtual environment.
+2. Installs the pinned dependencies.
+3. Runs the full test suite.
+4. Builds `dist\FinPilot\FinPilot.exe` with PyInstaller.
+5. Runs the packaged app's headless self-test (`FinPilot.exe --self-test <folder>`).
+6. Builds `dist\installer\FinPilot-Setup-1.0.0.exe` if Inno Setup is installed.
+7. Writes SHA-256 checksums.
 
-On GitHub, the **Windows build** workflow (`.github/workflows/windows-build.yml`) runs the same script on a
-Windows runner for every push to `main` and uploads the portable app, the installer and the test/self-test
-reports as downloadable artifacts of the run (Actions tab → latest run → Artifacts).
+[`.github/workflows/windows-build.yml`](.github/workflows/windows-build.yml) runs the same script in CI.
 
-## Project layout
+## Architecture
 
 ```
 src/finpilot/
-  core/          formula engine, sheet model, finance, hotel model, revenue management, formatting
-  curriculum/    content JSON, loader/validator, grading, progression, hotel project, drills
-  data/          SQLite progress database, .finpilot project files
-  export/        Excel (openpyxl) and PDF (ReportLab)
-  ui/            PySide6 app: theme, logo, widgets, grid, questions, main window, 12 screens
-  assets/        icon files
-tests/           pytest suite and the end-to-end UI journey
+  core/          formula engine, sheet model + dependency graph, finance, hotel model, revenue management
+  curriculum/    content (JSON), loader/validator, grading, progression, hotel project checker, drills
+  data/          SQLite progress database, .finpilot project files (checksummed, .bak on save)
+  export/        Excel (openpyxl, live formulas) and PDF (ReportLab)
+  ui/            PySide6 app: theme, widgets, spreadsheet grid, main window, 12 screens
+tests/           pytest suite, including an end-to-end learner journey through the real widgets
 build/           PyInstaller spec, Windows build script, version info, Inno Setup script
-tools/           content generators and icon generator
-docs/            architecture, formula reference, known limitations, troubleshooting, checklist, test report
+docs/            architecture, formula reference, limitations, troubleshooting, test report
 ```
 
-More: [ARCHITECTURE](docs/ARCHITECTURE.md) · [FORMULA_REFERENCE](docs/FORMULA_REFERENCE.md) ·
-[KNOWN_LIMITATIONS](docs/KNOWN_LIMITATIONS.md) · [CHECKLIST](docs/CHECKLIST.md)
+**Stack:** Python 3.12 · PySide6 (Qt 6) · openpyxl · ReportLab · matplotlib · SQLite · PyInstaller · Inno Setup
+
+## Quality
+
+- **158 automated tests.** They cover the formula engine, the sheet model and finance/hotel maths, checked
+  against independent hand calculations. They also cover grading, curriculum integrity, progression, the
+  database (including corruption and restore), project files, and Excel/PDF exports. The UI tests render every
+  screen at four window sizes and drive a **complete learner journey**.
+- **Exported workbooks are recalculated independently** with LibreOffice, and every formula cell matches
+  FinPilot's values.
+- **On Windows (CI),** the suite passes with the native Qt platform, and the packaged exe passes its five-point
+  self-test.
+
+Full details are in [docs/TEST_REPORT.md](docs/TEST_REPORT.md).
+
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [Architecture](docs/ARCHITECTURE.md) | Modules, data flow, design decisions |
+| [Formula reference](docs/FORMULA_REFERENCE.md) | Supported functions, operators and errors |
+| [Known limitations](docs/KNOWN_LIMITATIONS.md) | What V1 does not do yet |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Build and runtime problems, and where data lives |
+| [Requirements checklist](docs/CHECKLIST.md) | V1 scope and status |
+| [Test report](docs/TEST_REPORT.md) | What was tested, where, and the results |
+
+## Roadmap
+
+- [x] **V1:** Levels 1-3, the 12-month hotel model, scenarios, Excel export, the final assessment, and the Windows build
+- [ ] Level 4: revenue management (full course; the displacement simulator preview ships today)
+- [ ] Levels 5-10: the full P&L, cash flow, three-statement models, valuation and capstones
+- [ ] A code-signed installer
+
+## License
+
+[MIT](LICENSE) © 2026 M A Almahlaki
